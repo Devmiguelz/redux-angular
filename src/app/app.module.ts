@@ -6,7 +6,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HijoComponent } from './contador/hijo/hijo.component';
 import { NietoComponent } from './contador/nieto/nieto.component';
-import { contadorReducer } from './contador/contador.reducer';
+//ngrx
+import { contadorReducer } from './redux/reducers/contador.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment.prod';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,11 @@ import { contadorReducer } from './contador/contador.reducer';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot({ contador : contadorReducer })
+    StoreModule.forRoot({ contador : contadorReducer }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,                      // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
